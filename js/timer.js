@@ -6,7 +6,7 @@ $(function() {
     $('#start').click(function() {
         $('#message').text('');
         if (set()) {
-            timer = setInterval('counter()', 100);
+            timer = setInterval('counter()', 1000);
         }
     });
 
