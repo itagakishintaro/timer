@@ -75,7 +75,7 @@ function counter() {
 }
 
 function getPath(){
-     var str = location.pathname;
-     var i = str.lastIndexOf('/');
-     return str.substring(0,i+1);
- }
+    var str = location.pathname;
+    var i = str.lastIndexOf('/');
+    return str.substring(0,i+1);
+}
