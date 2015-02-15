@@ -1,8 +1,12 @@
 'use strict';
 
 var timer, min, sec;
+var is_html5_audio, audio;
+var src = 'sounds/alarm.mp3';
 
 $(function() {
+    // HTML5
+    is_html5_audio = (String(Audio).indexOf('HTMLAudioElement') > 0);
     $('#start').click(function() {
         $('#message').text('');
         if (set()) {
@@ -15,7 +19,12 @@ $(function() {
         sec = 0;
         setView();
         clearInterval(timer);
-        document.getElementById('sound').pause();
+        if(is_html5_audio){
+            audio.pause();
+        } else{
+            audio.stop();
+            audio.release();
+        }
         $('#message').text('');
         $('#minutes-setting').val('0');
         $('#seconds-setting').val('0');
@@ -61,7 +70,8 @@ function convertNum(num, figures) {
 function counter() {
     if(min === 0 && sec === 0){
         clearInterval(timer);
-        document.getElementById('sound').play();
+        audio = getAudio(src);
+        audio.play();
         $('#message').text('終了でーす。');
     }else if(sec === 0){
         sec = 59;
@@ -72,8 +82,21 @@ function counter() {
     setView();
 }
 
-function getPath(){
-    var str = location.pathname;
+function getAudio(src){
+    // HTML5
+    if(is_html5_audio){
+        return new Audio(src);
+    }
+    // Phonegap media
+    if (device.platform.toLowerCase() === 'android'){
+        // Android needs the search path explicitly specified
+        src = getPath() + src;
+    }
+    return new Media(src, null, function(error){ alert(src + ':' + JSON.stringify(error)); });
+}
+
+function getPath() {
+    var str = location.href;
     var i = str.lastIndexOf('/');
-    return str.substring(0,i+1);
+    return str.substring(0, i + 1);
 }
