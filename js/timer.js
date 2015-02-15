@@ -1,6 +1,7 @@
 'use strict';
 
 var timer, min, sec;
+var sound;
 
 $(function() {
     $('#start').click(function() {
@@ -15,7 +16,7 @@ $(function() {
         sec = 0;
         setView();
         clearInterval(timer);
-        document.getElementById('sound').pause();
+        sound.pause();
         $('#message').text('');
         $('#minutes-setting').val('0');
         $('#seconds-setting').val('0');
@@ -61,7 +62,8 @@ function convertNum(num, figures) {
 function counter() {
     if(min === 0 && sec === 0){
         clearInterval(timer);
-        document.getElementById('sound').play();
+        sound = new Media(getPath() + 'sounds/alarm.mp3');
+        sound.play();
         $('#message').text('終了でーす。');
     }else if(sec === 0){
         sec = 59;
@@ -71,3 +73,9 @@ function counter() {
     }
     setView();
 }
+
+function getPath(){
+     var str = location.pathname;
+     var i = str.lastIndexOf('/');
+     return str.substring(0,i+1);
+ }
