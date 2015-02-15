@@ -1,7 +1,6 @@
 'use strict';
 
 var timer, min, sec;
-var sound;
 
 $(function() {
     $('#start').click(function() {
@@ -16,7 +15,7 @@ $(function() {
         sec = 0;
         setView();
         clearInterval(timer);
-        sound.pause();
+        document.getElementById('sound').pause();
         $('#message').text('');
         $('#minutes-setting').val('0');
         $('#seconds-setting').val('0');
@@ -62,8 +61,7 @@ function convertNum(num, figures) {
 function counter() {
     if(min === 0 && sec === 0){
         clearInterval(timer);
-        sound = new Media(getPath() + 'sounds/alarm.mp3');
-        sound.play();
+        document.getElementById('sound').play();
         $('#message').text('終了でーす。');
     }else if(sec === 0){
         sec = 59;

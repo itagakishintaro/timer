@@ -22,6 +22,10 @@
     <div class='container'>
         <h1>タイマーくん</h1>
         <div id='message' style='color:red; font-size:large'></div>
+        <audio id='sound' preload='auto'>
+            <source src='android.resource://timer/raw/alarm' type='audio/mp3'></source>
+            <p>ChromeとかFirefoxとか使ってくれないと音ならないよ！</p>
+        </audio>
         <div style='font-size:large'>
             <input type='text' id='minutes-setting' size='4' value='0'></input>
             minutes,
